@@ -1124,6 +1124,66 @@
     }
 
     /* ═══════════════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════════════ */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .testimonial-card {
+      background: rgba(196,154,108,.05);
+      border: 1px solid rgba(196,154,108,.18);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: .2rem;
+      color: var(--rose-gold);
+      font-size: .85rem;
+    }
+    .testimonial-quote {
+      font-size: .92rem;
+      line-height: 1.75;
+      color: var(--text-light);
+      font-style: italic;
+      flex: 1;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .testimonial-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose-deep), var(--rose-gold));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; font-weight: 700;
+      color: #fff;
+      letter-spacing: .05em;
+      flex-shrink: 0;
+    }
+    .testimonial-name {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .testimonial-location {
+      font-size: .68rem;
+      color: var(--text-muted);
+      margin-top: .15rem;
+    }
+    @media (max-width: 900px) { .testimonials-grid { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════════════════════════
        VALUE GRID (bottom image grid)
     ═══════════════════════════════════════════════ */
     .value-grid {
@@ -2047,6 +2107,58 @@
       </div>
     </div>
   </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       TESTIMONIALS
+  ══════════════════════════════════════════════════════════════════ -->
+  <section class="section section--dark" id="testimonials">
+    <div class="container">
+      <div style="text-align:center;max-width:600px;margin:0 auto">
+        <span class="eyebrow">REAL WOMEN. REAL WORDS.</span>
+        <h2 class="section-hl">They said it better<br><em>than we ever could.</em></h2>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"I spent years feeling invisible and like no one understood what I was going through. Finding this community felt like finally exhaling. These women get it — and they don't let you stay stuck."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">DM</div>
+            <div>
+              <p class="testimonial-name">Denise M.</p>
+              <p class="testimonial-location">Atlanta, GA</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"I thought menopause meant slowing down. This club made me realize it's actually the beginning. The events, the products, the sisterhood — it's elevated in a way I didn't know I needed."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">RL</div>
+            <div>
+              <p class="testimonial-name">Regina L.</p>
+              <p class="testimonial-location">Houston, TX</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-quote">"The expert events alone are worth it. I've learned more about my own body in three months than in the last decade of doctor's appointments. And the women? Absolute powerhouses."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">TC</div>
+            <div>
+              <p class="testimonial-name">Tamara C.</p>
+              <p class="testimonial-location">Chicago, IL</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <!-- ══════════════════════════════════════════════════════════════════
        EMAIL CAPTURE / KLAVIYO
