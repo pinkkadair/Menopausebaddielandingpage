@@ -1289,6 +1289,26 @@
       border-color: var(--rose-gold);
       box-shadow: 0 0 0 3px rgba(196,154,108,.12);
     }
+    .form-select {
+      width: 100%;
+      padding: .85rem 1rem;
+      border: 1.5px solid var(--cream-mid);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: .92rem;
+      color: var(--text-dark);
+      background: #fdfaf6 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c49a6c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 1rem center;
+      -webkit-appearance: none;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+    .form-select:focus {
+      border-color: var(--rose-gold);
+      box-shadow: 0 0 0 3px rgba(196,154,108,.12);
+    }
+    .form-select option { color: var(--text-dark); }
     .form-disclaimer {
       text-align: center;
       font-size: .62rem;
@@ -2189,15 +2209,77 @@
         </div>
 
         <div class="form-wrap">
-          <p class="form-wrap-title">Get on the list.</p>
-          <p class="form-wrap-sub">Priority access, updates, and early invites — straight to your inbox.</p>
+          <p class="form-wrap-title">Claim your city.</p>
+          <p class="form-wrap-sub">Tell us where you are — you'll get priority notice when your chapter launches.</p>
 
-          <a href="https://menopause-baddie.myklpages.com/l/U77qh3"
-             target="_blank" rel="noopener noreferrer"
-             class="btn btn-pink btn-full btn-lg"
-             style="display:block;text-align:center;margin-top:1.5rem">
-            CLAIM ACCESS &nbsp;✦
-          </a>
+          <div id="city-form">
+            <form class="form" id="waitlist-form" novalidate>
+              <div class="form-field">
+                <label class="form-label" for="wl-name">First Name</label>
+                <input class="form-input" type="text" id="wl-name" placeholder="Your first name" autocomplete="given-name" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="wl-email">Email Address <span style="color:var(--rose-deep)">*</span></label>
+                <input class="form-input" type="email" id="wl-email" placeholder="you@email.com" autocomplete="email" required />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="wl-city">Your City</label>
+                <select class="form-select" id="wl-city">
+                  <option value="">— Select your city —</option>
+                  <option>Atlanta, GA</option>
+                  <option>Austin, TX</option>
+                  <option>Baltimore, MD</option>
+                  <option>Boston, MA</option>
+                  <option>Charlotte, NC</option>
+                  <option>Chicago, IL</option>
+                  <option>Cleveland, OH</option>
+                  <option>Columbus, OH</option>
+                  <option>Dallas, TX</option>
+                  <option>Denver, CO</option>
+                  <option>Detroit, MI</option>
+                  <option>Fort Worth, TX</option>
+                  <option>Houston, TX</option>
+                  <option>Indianapolis, IN</option>
+                  <option>Jacksonville, FL</option>
+                  <option>Las Vegas, NV</option>
+                  <option>Los Angeles, CA</option>
+                  <option>Louisville, KY</option>
+                  <option>Memphis, TN</option>
+                  <option>Miami, FL</option>
+                  <option>Minneapolis, MN</option>
+                  <option>Nashville, TN</option>
+                  <option>New Orleans, LA</option>
+                  <option>New York, NY</option>
+                  <option>Oklahoma City, OK</option>
+                  <option>Orlando, FL</option>
+                  <option>Philadelphia, PA</option>
+                  <option>Phoenix, AZ</option>
+                  <option>Portland, OR</option>
+                  <option>Raleigh, NC</option>
+                  <option>Sacramento, CA</option>
+                  <option>San Antonio, TX</option>
+                  <option>San Diego, CA</option>
+                  <option>San Francisco, CA</option>
+                  <option>San Jose, CA</option>
+                  <option>Seattle, WA</option>
+                  <option>St. Louis, MO</option>
+                  <option>Tampa, FL</option>
+                  <option>Washington, DC</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <p class="form-error" id="wl-error">Please enter a valid email address.</p>
+              <button type="submit" class="btn btn-pink btn-full btn-lg" id="wl-submit">
+                NOTIFY ME &nbsp;✦
+              </button>
+            </form>
+
+            <div id="form-success">
+              <div class="success-icon">♛</div>
+              <h3>You're on the list.</h3>
+              <p>We'll notify you the moment your chapter opens. Watch your inbox — big things are coming.</p>
+            </div>
+          </div>
 
           <p class="form-disclaimer" style="margin-top:1rem">No spam. No fluff. Unsubscribe anytime.</p>
 
@@ -2337,6 +2419,83 @@
         }
       }
     });
+  </script>
+
+  <!-- ── Klaviyo city-selector waitlist form ───────────────────────── -->
+  <script>
+    (function () {
+      var form    = document.getElementById('waitlist-form');
+      var success = document.getElementById('form-success');
+      var errorEl = document.getElementById('wl-error');
+      var submitBtn = document.getElementById('wl-submit');
+      if (!form) return;
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorEl.style.display = 'none';
+
+        var email  = document.getElementById('wl-email').value.trim();
+        var name   = document.getElementById('wl-name').value.trim();
+        var city   = document.getElementById('wl-city').value;
+
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          errorEl.style.display = 'block';
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'SENDING…';
+
+        var payload = {
+          data: {
+            type: 'subscription',
+            attributes: {
+              custom_source: 'Landing Page City Form',
+              profile: {
+                data: {
+                  type: 'profile',
+                  attributes: {
+                    email: email,
+                    first_name: name || undefined,
+                    properties: {
+                      chapter_city: city || 'Not specified'
+                    }
+                  }
+                }
+              }
+            },
+            relationships: {
+              list: {
+                data: { type: 'list', id: 'SwsqtG' }
+              }
+            }
+          }
+        };
+
+        try {
+          var res = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=UbuGrR', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'revision': '2023-02-22'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok || res.status === 202) {
+            form.style.display = 'none';
+            success.classList.add('visible');
+          } else {
+            throw new Error('API error ' + res.status);
+          }
+        } catch (err) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'NOTIFY ME ✦';
+          errorEl.textContent = 'Something went wrong. Please try again.';
+          errorEl.style.display = 'block';
+        }
+      });
+    })();
   </script>
 
 </body>
