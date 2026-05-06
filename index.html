@@ -4,6 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- ── Favicon ───────────────────────────────────────────────────── -->
+  <link rel="icon" type="image/png" sizes="32x32" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+
+  <!-- ── Google Analytics ──────────────────────────────────────────── -->
+  <!-- Replace G-XXXXXXXXXX with your GA4 Measurement ID -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script> -->
+
   <!-- ── Primary SEO ──────────────────────────────────────────────── -->
   <title>Menopause Baddie | Menopause Support, Community & Wellness for Women</title>
   <meta name="description" content="Finally — a premium membership built for women navigating menopause with confidence. Expert-led events, elevated products, sisterhood chapters & real answers. Join The Hot Girls Club." />
@@ -976,8 +990,59 @@
       gap: clamp(3rem, 6vw, 5rem);
       align-items: center;
     }
-    .chapters-text .btn { margin-top: 1.5rem; }
+    .chapters-text .btn { margin-top: 0; }
     .chapters-visual { display: flex; justify-content: center; }
+
+    .chapter-benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1.75rem 0 1.5rem;
+    }
+    .chapter-benefit {
+      background: rgba(196,154,108,.06);
+      border: 1px solid rgba(196,154,108,.15);
+      border-radius: 10px;
+      padding: 1.2rem .9rem;
+      text-align: center;
+    }
+    .chapter-benefit-icon {
+      font-size: 1.3rem;
+      color: var(--rose-gold);
+      margin-bottom: .5rem;
+    }
+    .chapter-benefit-title {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: .3rem;
+    }
+    .chapter-benefit-body {
+      font-size: .7rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+    .chapter-urgency {
+      background: rgba(212,96,122,.08);
+      border: 1px solid rgba(212,96,122,.22);
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .chapter-urgency-text {
+      font-size: .63rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--pink-bright);
+      text-align: center;
+      margin: 0;
+    }
+    @media (max-width: 560px) {
+      .chapter-benefits { grid-template-columns: 1fr; }
+    }
 
     /* Image US Map */
     .us-map-container {
@@ -1907,14 +1972,40 @@
         <div class="chapters-text">
           <span class="eyebrow">THE MOVEMENT</span>
           <h2 class="section-hl">
-            A national movement<br><em>with local backbone.</em>
+            Your city.<br><em>Your chapter. Your women.</em>
           </h2>
           <p class="body-lg">
-            Menopause Baddie Chapters bring the club into real life.
-            Women gather, lead, connect, learn, and build stronger
-            community in cities across the country — with standards,
-            structure, and real purpose.
+            A Menopause Baddie Chapter is a real-life home base —
+            monthly meetups, a city group chat, a leader who actually
+            knows your name, and a sisterhood built around the life
+            you're living right now.
           </p>
+
+          <div class="chapter-benefits">
+            <div class="chapter-benefit">
+              <div class="chapter-benefit-icon">◎</div>
+              <p class="chapter-benefit-title">Monthly Meetups</p>
+              <p class="chapter-benefit-body">In-person events hosted in your city every month.</p>
+            </div>
+            <div class="chapter-benefit">
+              <div class="chapter-benefit-icon">♡</div>
+              <p class="chapter-benefit-title">City Sisterhood</p>
+              <p class="chapter-benefit-body">A private circle of women who get exactly what you're going through.</p>
+            </div>
+            <div class="chapter-benefit">
+              <div class="chapter-benefit-icon">✦</div>
+              <p class="chapter-benefit-title">Chapter Leaders</p>
+              <p class="chapter-benefit-body">Led by trained Baddie leaders who hold the space and set the standard.</p>
+            </div>
+          </div>
+
+          <div class="chapter-urgency">
+            <p class="chapter-urgency-text">♛ Chapters launching Fall 2026 — first 500 members get Founding Chapter status</p>
+          </div>
+
+          <a href="https://menopause-baddie.myklpages.com/l/U77qh3" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+            Claim Your City
+          </a>
         </div>
       </div>
     </div>
