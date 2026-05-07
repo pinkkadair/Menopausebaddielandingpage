@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Club | Menopause Baddie</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0a0a0a;
+      color: #e8dfd0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :root {
+      --rose-gold: #c49a6c;
+      --pink-bright: #d4607a;
+      --cream: #faf7f2;
+      --text-muted: #7a6e68;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,10,10,.95);
+      border-bottom: 1px solid rgba(196,154,108,.15);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: #faf7f2; text-decoration: none;
+    }
+    .nav-home {
+      font-size: .65rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--rose-gold); text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .crown {
+      font-size: 3rem;
+      color: var(--rose-gold);
+      animation: crownPop .6s cubic-bezier(.34,1.56,.64,1) both;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    @keyframes crownPop {
+      from { transform: scale(0) rotate(-20deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+    }
+
+    .eyebrow {
+      display: block;
+      font-size: .58rem; font-weight: 700;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--rose-gold);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--rose-gold);
+    }
+
+    .sub {
+      font-size: .95rem;
+      color: #c8bfb5;
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 2rem 0;
+      opacity: .35;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      width: 60px; height: 1px;
+      background: var(--rose-gold);
+    }
+    .divider span { font-size: .7rem; color: var(--rose-gold); }
+
+    .what-next {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+    }
+    .next-card {
+      background: rgba(196,154,108,.06);
+      border: 1px solid rgba(196,154,108,.18);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .next-icon {
+      font-size: 1.4rem;
+      color: var(--rose-gold);
+      display: block;
+      margin-bottom: .65rem;
+    }
+    .next-title {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: .4rem;
+    }
+    .next-body {
+      font-size: .72rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .85rem 2.5rem;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn--pink {
+      background: linear-gradient(135deg, #d4607a 0%, #b84d67 100%);
+      color: #fff;
+    }
+    .btn--outline {
+      background: transparent;
+      border: 1.5px solid rgba(196,154,108,.4);
+      color: var(--rose-gold);
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(196,154,108,.1);
+      font-size: .65rem;
+      color: #5a4e48;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 600px) {
+      .what-next { grid-template-columns: 1fr; max-width: 340px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Menopause Baddie</a>
+    <a href="index.html" class="nav-home">← Back to Site</a>
+  </nav>
+
+  <main>
+    <span class="crown">♛</span>
+    <span class="eyebrow">Welcome to the Club</span>
+    <h1>You're officially<br><em>a Baddie.</em></h1>
+    <p class="sub">
+      Your membership is confirmed. Check your inbox for your welcome email with everything you need to get started. Big things are coming your way.
+    </p>
+
+    <div class="divider"><span>✦</span></div>
+
+    <div class="what-next">
+      <div class="next-card">
+        <span class="next-icon">✉</span>
+        <p class="next-title">Check Your Inbox</p>
+        <p class="next-body">Your welcome email is on its way with access details and next steps.</p>
+      </div>
+      <div class="next-card">
+        <span class="next-icon">♡</span>
+        <p class="next-title">Your Chapter</p>
+        <p class="next-body">Founding members get first access when your city's chapter opens.</p>
+      </div>
+      <div class="next-card">
+        <span class="next-icon">◎</span>
+        <p class="next-title">Stay Close</p>
+        <p class="next-body">Events, drops, and VIP moments land in your inbox first. Watch for us.</p>
+      </div>
+    </div>
+
+    <div class="cta-group">
+      <a href="index.html" class="btn btn--outline">Back to Site</a>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 Menopause Baddie. All rights reserved. &nbsp;·&nbsp;
+    <a href="privacy.html" style="color:#5a4e48">Privacy Policy</a>
+  </footer>
+
+</body>
+</html>
