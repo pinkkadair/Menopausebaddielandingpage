@@ -1,6 +1,10 @@
 const crypto = require('crypto');
 
 const MEMBERS_LIST_ID = 'VLZT28';
+const VIP_LIST_ID     = 'X9pYLb';
+
+// Stripe price IDs — update these if you change your Stripe products
+const VIP_PRICE_ID    = 'price_1RC0rRG8yNTwHO5Uk7Qk7Qk'; // placeholder — see note below
 
 function getRawBody(req) {
   return new Promise((resolve, reject) => {
@@ -23,7 +27,23 @@ function verifySignature(rawBody, sigHeader, secret) {
   }
 }
 
-async function addMemberToKlaviyo(email, firstName) {
+async function addToKlaviyoList(listId, profileId, headers) {
+  const res = await fetch(
+    `https://a.klaviyo.com/api/lists/${listId}/relationships/profiles/`,
+    {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        data: [{ type: 'profile', id: profileId }],
+      }),
+    }
+  );
+  if (!res.ok && res.status !== 409) {
+    throw new Error(`List enrollment failed for ${listId}: ${res.status}`);
+  }
+}
+
+async function addMemberToKlaviyo(email, firstName, isVIP) {
   const KEY = process.env.KLAVIYO_PRIVATE_KEY;
   const headers = {
     'Content-Type': 'application/json',
@@ -38,7 +58,13 @@ async function addMemberToKlaviyo(email, firstName) {
     body: JSON.stringify({
       data: {
         type: 'profile',
-        attributes: { email, first_name: firstName || '' },
+        attributes: {
+          email,
+          first_name: firstName || '',
+          properties: {
+            membership_tier: isVIP ? 'VIP Baddie' : 'Club Member',
+          },
+        },
       },
     }),
   });
@@ -56,20 +82,12 @@ async function addMemberToKlaviyo(email, firstName) {
 
   if (!profileId) throw new Error('Could not resolve Klaviyo profile ID');
 
-  // Add profile to members list
-  const listRes = await fetch(
-    `https://a.klaviyo.com/api/lists/${MEMBERS_LIST_ID}/relationships/profiles/`,
-    {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        data: [{ type: 'profile', id: profileId }],
-      }),
-    }
-  );
+  // Always add to Members list
+  await addToKlaviyoList(MEMBERS_LIST_ID, profileId, headers);
 
-  if (!listRes.ok && listRes.status !== 409) {
-    throw new Error(`List enrollment failed: ${listRes.status}`);
+  // Also add to VIP list if VIP purchase
+  if (isVIP) {
+    await addToKlaviyoList(VIP_LIST_ID, profileId, headers);
   }
 }
 
@@ -94,9 +112,14 @@ async function handler(req, res) {
     const email = session.customer_details?.email;
     const firstName = session.customer_details?.name?.split(' ')[0] || '';
 
+    // Detect VIP by amount — VIP is $45/mo = 4500 cents
+    // Falls back to false (Club Member) if amount is unavailable
+    const amountTotal = session.amount_total;
+    const isVIP = amountTotal >= 4500;
+
     if (email) {
       try {
-        await addMemberToKlaviyo(email, firstName);
+        await addMemberToKlaviyo(email, firstName, isVIP);
       } catch (err) {
         console.error('Klaviyo enrollment error:', err.message);
         return res.status(500).json({ error: 'Klaviyo enrollment failed' });
